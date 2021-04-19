@@ -19,134 +19,133 @@ df_data['target'] = data['target']
 
 df_data.head()
 
+X_train, X_test, Y_train, Y_Test = train_test_split(data.data, data.target,stratify=data.target, random_state=1)
+
 # NUERAL NETWORK FOR DATA
 
 # Different Hidden Layers (1,2)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(1,2), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
+#cv_score = cross_val_score(clf,
+#                           X=df_data.iloc[:, :-1],
+#                           y=df_data['target'],
+ #                          cv=5)
+
+clf.fit(X_train, Y_train)
+print("Different Hidden Layers (1,2)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
+
+#plt.plot(cv_score);
 plt.show()
 
 # One Hidden Layer (5)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("One Hidden Layer (5)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
+
 
 # One Hidden Layer (10)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(10), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("One Hidden Layer (10)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
+
 
 # Two Hidden Layer (5,10)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(5,10), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+
+clf.fit(X_train, Y_train)
+print("Two Hidden Layer (5,10)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Two Hidden Layer (10,5)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(10,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Two Hidden Layer (10,5)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Three Hidden Layer (5,10,5)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(5,10,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Three Hidden Layer (5,10,5)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Three Hidden Layer (10,20,5)
 clf = MLPClassifier(alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Three Hidden Layer (10,20,5)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Gradient Descent Solver (10,20,5) - lbfgs
 clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Gradient Descent Solver (10,20,5) - lbfgs")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Gradient Descent Solver (10,20,5) - sgd
 clf = MLPClassifier(solver='sgd', alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Gradient Descent Solver (10,20,5) - sgd")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Gradient Descent Solver (10,20,5) - adam
 clf = MLPClassifier(solver='adam', alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Gradient Descent Solver (10,20,5) - adam")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Activation Function (10,20,5) - logistic
 clf = MLPClassifier(activation='logistic', alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Activation Function (10,20,5) - logistic")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Activation Function (10,20,5) - relu
 clf = MLPClassifier(activation='relu', alpha=1e-5,
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Activation Function (10,20,5) - relu")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
 # Different Regularization Parameter (0.01,0.1)
-clf = MLPClassifier(alpha=(0.01,0.1), 
+clf = MLPClassifier(alpha=(0.01,0.1),
                     hidden_layer_sizes=(10,20,5), random_state=1)
-cv_score = cross_val_score(clf,
-                           X=df_data.iloc[:, :-1],
-                           y=df_data['target'],
-                           cv=5)
-plt.plot(cv_score);
-plt.show()
+
+clf.fit(X_train, Y_train)
+print("Different Regularization Parameter (0.01,0.1)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
