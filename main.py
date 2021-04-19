@@ -3,50 +3,28 @@
 # Project 3
 
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import cross_val_score
+import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
+from sklearn.neural_network import MLPClassifier
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
 
-input_ft = np.array([[0,0],[0,1],[1,0],[1,1]])
-#input_ft = load_breast_cancer()
-#input_ft.target[[10,50,85]]
-#print (input_ft.target)
-print (input_ft.shape)
-input_ft
+# Import dataset
+data = load_breast_cancer()
+data.target[[10, 50, 85]]
+df_data = pd.DataFrame(data['data'], columns=data['feature_names'])
+df_data['target'] = data['target']
 
-target = np.array([0,1,1,1])
-target = target.reshape(4,1)
-print(target.shape)
-target
+df_data.head()
 
-hidden_weight = np.array([[0.1,0.2,0.3],[0.4,0.5,0.6]])
-output_weight = np.array([[0.7],[0.8],[0.9]])
-
-learning_rate = 0.05
-
-def sigmoid(x):
-    return 1/(1+np.exp(-x))
-
-def sig_derivative(x):
-    return sigmoid(x)*(1-sigmoid(x))
-
-for epoch in range(200000):
-    hidden_input = np.dot(input_ft,hidden_weight)
-    hidden_output = sigmoid(hidden_input)
-    input_output_layer = np.dot(hidden_output, output_weight)
-    output_output_layer = sigmoid(input_output_layer)
-    error_output = ((1/2) * (np.power((output_output_layer - target), 2)))
-    print(error_output.sum())
-    derivative_error_target = output_output_layer - target
-    derivative_input = sig_derivative(input_output_layer)
-    derivative_output = hidden_output
-    derivative_error_output = np.dot(derivative_output.T, derivative_error_target * derivative_input)
-
-    derivative_error_input = derivative_error_target * derivative_input
-    derivative_input_output = output_weight
-    derivative_outputth = np.dot(derivative_error_input, derivative_input_output.T)
-    derivative_input_hidden = sig_derivative(hidden_input)
-    derivative_input_dwh = input_ft
-    derivative_error_weight = np.dot(derivative_input_dwh.T, derivative_input_hidden * derivative_outputth)
-
-    hidden_weight -= learning_rate * derivative_error_weight
-    output_weight -= learning_rate * derivative_error_output
-
+# Neural Network for Data
+clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
+                    hidden_layer_sizes=(10,3,3), random_state=1)
+cv_score = cross_val_score(clf,
+                           X=df_data.iloc[:, :-1],
+                           y=df_data['target'],
+                           cv=5)
+plt.plot(cv_score);
+plt.show()
