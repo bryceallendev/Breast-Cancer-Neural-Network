@@ -11,6 +11,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from statistics import mean
 
 # Import dataset
 data = load_breast_cancer()
@@ -21,6 +22,9 @@ df_data['target'] = data['target']
 df_data.head()
 
 X_train, X_test, Y_train, Y_Test = train_test_split(data.data, data.target,stratify=data.target, random_state=1)
+
+#print(list(data.data))
+
 
 # NUERAL NETWORK FOR DATA
 
@@ -172,6 +176,16 @@ clf = MLPClassifier(alpha=0.1,
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 print("Different Regularization Parameter (0.1)")
+print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
+print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
+
+# Different Regularization Parameter (0.1)
+clf = MLPClassifier(alpha=(0.01,0.1),
+                    hidden_layer_sizes=(10,20,5), max_iter=600, random_state=1)
+
+clf.fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+print("Different Regularization Parameter (0.01, 0.1)")
 print("Training Set Accuracy: {:.2f}".format(clf.score(X_train,Y_train)))
 print("Test Set Accuracy: {:.2f}".format(clf.score(X_test,Y_Test)))
 
